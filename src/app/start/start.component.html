@@ -1,0 +1,16 @@
+<div class="startView">
+      <h3>Weather App</h3>
+
+  <input
+    class="cityInput"
+    type="text"
+    placeholder="Enter city"
+    [value]="city"
+    (input)="onCityInput($event)"
+  />
+  <button class="btn"
+          (click)="searchWeather()"
+          [disabled]="!city || city.trim() === ''">
+    Search
+  </button>
+</div>

@@ -1,0 +1,122 @@
+.weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  background: #121212; /* Ciemne tło */
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Subtelny cień */
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h1, h2, h3 {
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+
+  .today {
+    background: #1a1a1a;
+    padding: 1.5rem;
+    border: 1px solid #FFD700;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+
+    @media (max-width: 768px) {
+      max-width: 90%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    &:hover {
+      transform: translateY(-10px);
+      background: #333333;
+      border: 1px solid #4A90E2;
+    }
+  }
+
+
+  .today h1, .today h2 {
+    color: #ffffff;
+  }
+
+  .weatherImage {
+    max-width: 130px;
+    margin: 1.5rem auto;
+    display: block;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1); /* Powiększanie obrazu */
+    }
+  }
+
+  .forecast-header {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  .forecast {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+
+  .card {
+    border: 1px solid #FFD700;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    flex: 1 1 calc(33.333% - 1rem);
+    background: #2a2a2a;
+    color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto;
+
+    img {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+
+    &:hover {
+      transform: translateY(-10px);
+      background: #333333;
+      border: 1px solid #4A90E2;
+    }
+
+    @media (max-width: 768px) {
+      flex: 1 1 calc(90% - 1rem);
+      margin: 0 auto;
+    }
+
+    @media (max-width: 480px) {
+      flex: 1 1 100%;
+    }
+  }
+
+}

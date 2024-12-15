@@ -1,0 +1,31 @@
+<div class="weather">
+  <div class="today">
+    <h3>{{ getDayOfWeekForToday() }}</h3>
+    <h1>{{ weatherData?.location?.name }}</h1>
+    <h2>{{ weatherData?.location?.region }}</h2>
+    <h2>{{ weatherData?.location?.country }}</h2>
+    <img
+      class="weatherImage"
+      alt="Weather Icon"
+      [src]="'http:' + (weatherData?.current?.condition?.icon || '')"
+    />
+    <p><strong>Temperature:</strong> {{ weatherData?.current?.temp_c }} °C</p>
+    <p><strong>Conditions:</strong> {{ weatherData?.current?.condition?.text }}</p>
+    <p><strong>Humidity:</strong> {{ weatherData?.current?.humidity }}%</p>
+    <p><strong>Precipitation Probability:</strong> {{ getPrecipitation() }}</p>
+  </div>
+
+  <h2 class="forecast-header">Next Days</h2>
+
+
+  <div class="forecast">
+    <div class="card" *ngFor="let day of filteredForecast">
+      <h3>{{ getDayLabel(day.date) }}</h3>
+      <img [src]="'http:' + day.day.condition.icon" alt="Weather Icon"/>
+      <p><strong>Temperature:</strong> {{ day.day.avgtemp_c }} °C</p>
+      <p><strong>Conditions:</strong> {{ day.day.condition.text }}</p>
+      <p><strong>Humidity:</strong> {{ day?.day?.avghumidity !== undefined ? day.day.avghumidity + '%' : 'N/A' }}</p>
+      <p><strong>Precipitation Probability:</strong> {{ day.day.daily_chance_of_rain }}%</p>
+    </div>
+  </div>
+</div>

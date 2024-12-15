@@ -1,0 +1,119 @@
+.startView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin: 2rem auto;
+  text-align: center;
+  background-color: #121212;
+  color: white;
+  border: 1px solid #FFD700;
+  border-radius: 5px;
+  max-width: 500px;
+  height: 600px;
+
+
+  h3 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    width: 80%;
+  }
+
+  .cityInput {
+    width: 90%;
+    max-width: 400px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    color: white;
+    outline: none;
+
+    &::placeholder {
+      color: #aaa;
+    }
+
+    &:focus {
+      border-color: #FFD700;
+    }
+    &:active {
+      border-color: #FFD700;
+    }
+  }
+
+  .btn {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: white;
+    color: #030303;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+
+    &:hover {
+      background-color: #ccc;
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      background-color: #555;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .startView {
+    margin: 4rem 1rem;
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+    h3 {
+      font-size: 2rem;
+    }
+
+    .cityInput {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .startView {
+      margin: 4rem 0.5rem;
+      padding: 1rem;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+    }
+
+    .cityInput {
+      font-size: 0.85rem;
+      padding: 0.4rem;
+    }
+
+    .btn {
+      padding: 0.4rem 1.2rem;
+      font-size: 0.85rem;
+    }
+  }
+
+

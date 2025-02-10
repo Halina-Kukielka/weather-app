@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import {By} from "@angular/platform-browser";
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -20,10 +21,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('WeatherApp');
   });
 
-  it('should render title', () => {
+  it(`should have video tag`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, WeatherApp');
+    const videoElement = fixture.debugElement.query(By.css('video'));
+    expect(videoElement).toBeTruthy();
   });
+
+
 });

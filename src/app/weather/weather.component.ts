@@ -1,83 +1,195 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpService} from '../http.service';
-import {WeatherData} from '../models/weather-data.model';
-import {CommonModule, NgFor} from '@angular/common';
+import {ForecastDay, Hour, WeatherData} from '../models/weather-data.model';
+import {CommonModule} from '@angular/common';
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
+
 @Component({
-  selector: 'app-weather',
-  imports: [NgFor],
-  templateUrl: './weather.component.html',
-  standalone: true,
-  styleUrls: ['./weather.component.scss']
+    selector: 'app-weather',
+    imports: [CommonModule, TranslateModule],
+    templateUrl: './weather.component.html',
+    standalone: true,
+    styleUrls: ['./weather.component.scss']
 })
-export class WeatherComponent implements OnInit {
-  city: string = '';
-  weatherData: WeatherData | null = null;
-  todayDate: string = '';
-  filteredForecast: any[] = [];
+export class WeatherComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
+    private scrollUnlistener!: () => void;
+    showLeftArrow = false;
+    showRightArrow = false;
+    city: string = '';
+    weatherData: WeatherData | null = null;
+    todayDate: string = '';
+    filteredForecast: ForecastDay[] = [];
+    todayLabel: string = '';
+    tomorrowLabel: string = ';'
+
+    constructor(
+        private route: ActivatedRoute,
+        private httpService: HttpService,
+        private renderer: Renderer2,
+        private translate: TranslateService) {
+    }
 
 
-  constructor(private route: ActivatedRoute, private httpService: HttpService) {
-  }
-
-  ngOnInit(): void {
-    this.city = this.route.snapshot.paramMap.get('city') || '';
-
-    this.httpService.getWeather(this.city).subscribe({
-      next: (res) => {
-        this.weatherData = res;
-
-        console.log('Pobrane dane pogodowe:', JSON.stringify(res));
-        console.log('Forecast data:', this.weatherData?.forecast?.forecastday);
-
-        this.todayDate = new Date().toISOString().split('T')[0];
-        if (this.weatherData?.forecast?.forecastday) {
-          this.filteredForecast = this.weatherData.forecast.forecastday.filter(day => day.date !== this.todayDate);
+    ngOnInit(): void {
+        this.city = this.route.snapshot.paramMap.get('city') || '';
+        var browserLang = this.translate.getBrowserLang();
+        if(browserLang == undefined){
+            browserLang = "en";
         }
-      },
-      error: (err) => {
-        console.error('Błąd podczas pobierania danych pogodowych:', err);
-      }
-    });
-  }
-
-  getDayOfWeekForToday(): string {
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const today = new Date();
-    return daysOfWeek[today.getDay()];
-  }
-
-  getDayLabel(date: string): string {
-    const localtime = this.weatherData?.location.localtime;
-    if (!localtime) {
-      return 'Invalid localtime';
+        this.httpService.getWeather(this.city, browserLang!).subscribe({
+            next: (res) => {
+                this.weatherData = res;
+                this.todayDate = new Date().toISOString().split('T')[0];
+                if (this.weatherData?.forecast?.forecastday) {
+                    this.filteredForecast = this.weatherData.forecast.forecastday.slice(1, 7).map(day => ({
+                        ...day,
+                        day: {
+                            ...day.day,
+                            avgtemp_c: WeatherComponent.roundTemperature(day.day.avgtemp_c),
+                            mintemp_c: WeatherComponent.roundTemperature(day.day.mintemp_c),
+                            maxtemp_c: WeatherComponent.roundTemperature(day.day.maxtemp_c)
+                        }
+                    }));
+                }
+            },
+            error: (err) => {
+                console.error('Błąd podczas pobierania danych pogodowych:', err);
+            }
+        });
+        this.translate.get('weather.today').subscribe((translatedToday) => {
+            this.todayLabel = translatedToday;
+        });
+        this.translate.get('weather.tomorrow').subscribe((translatedTomorrow) => {
+            this.tomorrowLabel = translatedTomorrow;
+        });
     }
-    const today = new Date(localtime.split(' ')[0] || '');
-    const forecastDate = new Date(date);
 
-    if (isNaN(forecastDate.getTime())) {
-      return 'Invalid date';
+    ngAfterViewInit() {
+        if (this.scrollContainer) {
+            this.scrollUnlistener = this.renderer.listen(this.scrollContainer.nativeElement, 'scroll', () => {
+                this.checkScroll();
+            });
+            this.checkScroll();
+        }
+        this.showRightArrow = true;
     }
 
-    const diffTime = forecastDate.getTime() - today.getTime();
-    const diffDays = Math.floor(diffTime / (1000 * 3600 * 24));
 
-    if (diffDays === 0) {
-      return 'Today';
-    } else if (diffDays === 1) {
-      return 'Tomorrow';
-    } else if (diffDays === 2) {
-      return 'Day After Tomorrow';
-    } else {
-      return forecastDate.toLocaleDateString();
+    scrollLeft(): void {
+        this.scrollContainer.nativeElement.scrollBy({ left: -200, behavior: 'smooth' });
     }
-  }
 
-  getPrecipitation(): string {
-    return this.weatherData?.current?.precip_mm
-      ? this.weatherData.current.precip_mm + ' mm'
-      : '0 mm';
-  }
+    scrollRight(): void {
+        this.scrollContainer.nativeElement.scrollBy({ left: 200, behavior: 'smooth' });
+    }
 
+    checkScroll(): void {
+        const el = this.scrollContainer.nativeElement;
+        this.showLeftArrow = el.scrollLeft > 0;
+        this.showRightArrow = el.scrollLeft + el.clientWidth < el.scrollWidth;
+    }
 
+    private static roundTemperature(temp: number): number {
+        return Math.round(temp);
+    }
+
+    getCurrentTemperature(): number | undefined {
+        return this.weatherData?.current?.temp_c !== undefined
+            ? Math.round(this.weatherData.current.temp_c)
+            : undefined;
+    }
+
+    getFeelsLikeTemp(): number | undefined {
+        return this.weatherData?.current.feelslike_c !== undefined
+            ? Math.round(this.weatherData.current.feelslike_c) : undefined;
+    }
+
+    getDayOfWeekForToday(): string {
+        const daysOfWeek = [
+            this.translate.instant('days.sunday'),
+            this.translate.instant('days.monday'),
+            this.translate.instant('days.tuesday'),
+            this.translate.instant('days.wednesday'),
+            this.translate.instant('days.thursday'),
+            this.translate.instant('days.friday'),
+            this.translate.instant('days.saturday')
+        ];
+
+        const months = [
+            this.translate.instant('months.january'),
+            this.translate.instant('months.february'),
+            this.translate.instant('months.march'),
+            this.translate.instant('months.april'),
+            this.translate.instant('months.may'),
+            this.translate.instant('months.june'),
+            this.translate.instant('months.july'),
+            this.translate.instant('months.august'),
+            this.translate.instant('months.september'),
+            this.translate.instant('months.october'),
+            this.translate.instant('months.november'),
+            this.translate.instant('months.december')
+        ];
+
+        const today = new Date();
+        const dayOfWeek = daysOfWeek[today.getDay()];
+        const day = today.getDate();
+        const month = months[today.getMonth()];
+        const year = today.getFullYear();
+
+        return `${dayOfWeek}, ${day} ${month} ${year}`;
+    }
+
+    getDayLabel(date: string): string {
+        const localtime = this.weatherData?.location.localtime;
+        if (!localtime) {
+            return 'Invalid localtime';
+        }
+
+        const today = new Date(localtime.split(' ')[0] || '');
+        const forecastDate = new Date(date);
+
+        if (isNaN(forecastDate.getTime())) {
+            return 'Invalid date';
+        }
+
+        const diffTime = forecastDate.getTime() - today.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 3600 * 24));
+
+        if (diffDays === 0) {
+            return this.todayLabel;
+        } else if (diffDays === 1) {
+            return this.tomorrowLabel;
+        } else {
+            return forecastDate.toLocaleDateString();
+        }
+    }
+
+    getHourlyForecast(): Hour[] {
+        if (!this.weatherData?.forecast?.forecastday?.length) {
+            return [];
+        }
+        const now = new Date();
+        const currentHour = now.getHours();
+        const hourlyData = this.weatherData?.forecast.forecastday[0].hour || [];
+
+        return hourlyData
+            .filter(hour => {
+                const hourTime = new Date(hour.time).getHours();
+                return hourTime >= currentHour;
+            })
+            .map(hour => ({
+                time: hour.time.split(" ")[1],
+                temp_c: WeatherComponent.roundTemperature(hour.temp_c),
+                condition: hour.condition,
+                icon: hour.condition.icon
+            }));
+    }
+
+    ngOnDestroy() {
+        if (this.scrollUnlistener) {
+            this.scrollUnlistener();
+        }
+    }
 }

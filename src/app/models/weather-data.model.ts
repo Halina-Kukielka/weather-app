@@ -2,6 +2,7 @@ export interface WeatherData {
   location: Location;
   current: CurrentWeather;
   forecast: Forecast;
+  day: Day;
 }
 
 export interface Location {
@@ -53,7 +54,7 @@ export interface Condition {
   code: number;
 }
 
-// New interface for the 7-day forecast
+
 export interface Forecast {
   forecastday: ForecastDay[];
 }
@@ -61,7 +62,8 @@ export interface Forecast {
 export interface ForecastDay {
   date: string;
   day: Day;
-  astro: Astro;  // Additional information like sunrise/sunset if needed
+  hour: Hour[];
+  astro: Astro;
 }
 
 export interface Day {
@@ -80,7 +82,7 @@ export interface Day {
   pressure_in: number;
   precip_mm: number;
   precip_in: number;
-  humidity: number;
+  avghumidity: number;
   cloud: number;
   feelslike_c: number;
   feelslike_f: number;
@@ -95,10 +97,16 @@ export interface Day {
   uv: number;
   gust_mph: number;
   gust_kph: number;
-  daily_chance_of_rain: number;  // Precipitation probability
+  daily_chance_of_rain: number;
 }
 
 export interface Astro {
   sunrise: string;
   sunset: string;
+}
+
+export interface Hour {
+  time: string;
+  temp_c: number;
+  condition: Condition;
 }

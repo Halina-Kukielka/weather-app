@@ -1,16 +1,19 @@
-<div class="startView">
-      <h3>Weather App</h3>
-
-  <input
-    class="cityInput"
-    type="text"
-    placeholder="Enter city"
-    [value]="city"
-    (input)="onCityInput($event)"
-  />
-  <button class="btn"
-          (click)="searchWeather()"
-          [disabled]="!city || city.trim() === ''">
-    Search
-  </button>
+<div class="container">
+    <div class="startView">
+        <h3>{{ 'start.title' | translate }}</h3>
+        <input
+                class="cityInput"
+                type="text"
+                [placeholder]="'start.placeholder' | translate"
+                [value]="city"
+                (input)="onCityInput($event)"
+                (keyup.enter)="searchWeather()"
+        />
+        <button class="btn"
+                (click)="searchWeather()"
+                [disabled]="!city || city.trim() === ''">
+            {{ 'start.search' | translate }}
+        </button>
+    </div>
 </div>
+

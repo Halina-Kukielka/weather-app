@@ -1,0 +1,45 @@
+{
+  "start": {
+    "title": "Wettercheck",
+    "placeholder": "Standort eingeben",
+    "search": "Suche"
+  },
+  "weather": {
+    "today": "Heute",
+    "tomorrow": "Morgen",
+    "sunrise": "Sonnenaufgang:",
+    "sunset": "Sonnenuntergang:",
+    "feelsLike": "Gefühlt:",
+    "conditions": "Bedingungen:",
+    "humidity": "Luftfeuchtigkeit",
+    "pressure": "Luftdruck",
+    "wind": "Wind",
+    "temp": "Temperatur",
+    "rain": "Niederschlagswahrscheinlichkeit",
+    "from": "von",
+    "to": "bis"
+  },
+  "days": {
+    "sunday": "Sonntag",
+    "monday": "Montag",
+    "tuesday": "Dienstag",
+    "wednesday": "Mittwoch",
+    "thursday": "Donnerstag",
+    "friday": "Freitag",
+    "saturday": "Samstag"
+  },
+  "months": {
+    "january": "Januar",
+    "february": "Februar",
+    "march": "März",
+    "april": "April",
+    "may": "Mai",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "August",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "Dezember"
+  }
+}

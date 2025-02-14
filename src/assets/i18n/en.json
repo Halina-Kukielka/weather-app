@@ -1,0 +1,47 @@
+{
+  "start": {
+    "title": "Weather Check",
+    "placeholder": "Enter location",
+    "search": "Search"
+  },
+  "weather": {
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "sunrise": "Sunrise:",
+    "sunset": "Sunset:",
+    "feelsLike": "Feels like:",
+    "conditions": "Conditions:",
+    "humidity": "Humidity:",
+    "pressure": "Pressure:",
+    "wind": "Wind:",
+    "temp": "Temparature",
+    "rain": "Precipitation Probability:",
+    "from": "from",
+    "to": "to"
+
+  },
+  "days": {
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  }
+}
+

@@ -45,12 +45,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: $global-gap-small; // Zmniejszono odstęp między elementami
+    gap: $global-gap-small;
   }
 
   .location h2 {
     font-size: $font-size-medium;
-    margin-bottom: $global-gap-small; // Zmniejszono margines dolny
+    margin-bottom: $global-gap-small;
   }
 
   .location h1 {

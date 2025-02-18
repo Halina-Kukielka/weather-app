@@ -1,29 +1,26 @@
 @import "../../variables.scss";
 
-$global-padding: 1.5rem;
-$global-gap: 1rem;
-
 .weather {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  padding: 2rem;
+  gap: $global-gap;
+  padding: $global-padding;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: $max-width;
   width: 100%;
   box-sizing: border-box;
 
   h1, h2, h3 {
     text-align: center;
-    letter-spacing: 1px;
+    letter-spacing: $letter-spacing-base;
   }
 
   .container {
     border: $border;
     background: rgba(255, 255, 255, 0.9);
     padding: $global-padding;
-    border-radius: 10px;
+    border-radius: $border-radius;
     text-align: center;
     margin: 0 auto;
     width: 100%;
@@ -41,7 +38,6 @@ $global-gap: 1rem;
       grid-template-columns: 1fr;
       width: 100%;
     }
-
   }
 
   .location {
@@ -49,24 +45,39 @@ $global-gap: 1rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-
-  .location h1 {
-    font-size: 2.5rem;
+    gap: $global-gap-small; // Zmniejszono odstęp między elementami
   }
 
   .location h2 {
-    font-size: 1.2rem;
+    font-size: $font-size-medium;
+    margin-bottom: $global-gap-small; // Zmniejszono margines dolny
+  }
+
+  .location h1 {
+    font-size: $font-size-xlarge;
+    margin-bottom: $global-gap-small;
+  }
+
+  .location h4 {
+    font-size: $font-size-small;
+    margin-bottom: $global-gap-small;
+  }
+
+  .location h3 {
+    font-size: $font-size-medium;
+    margin-bottom: $global-gap-small;
   }
 
   .location p {
-    font-size: 3rem;
+    font-size: $font-size-xlarge;
+    margin-top: $global-gap-small;
   }
+
 
   .image {
     display: flex;
     justify-content: center;
-    padding: 0.5rem;
+    padding: $small-padding;
     margin-top: 80px;
 
     @media (max-width: 768px) {
@@ -78,14 +89,14 @@ $global-gap: 1rem;
     width: 160px;
     height: 160px;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform $transition-speed ease;
 
     @media (max-width: 768px) {
       margin-top: -70px;
     }
 
     &:hover {
-      transform: scale(1.1);
+      transform: scale($hover-scale);
     }
   }
 
@@ -108,7 +119,7 @@ $global-gap: 1rem;
 
   .hourly-forecast {
     width: 100%;
-    max-width: 1200px;
+    max-width: $max-width;
     text-align: center;
     box-sizing: border-box;
   }
@@ -140,13 +151,13 @@ $global-gap: 1rem;
 
   button {
     background: $light-grey;
-    color: black;
+    color: $black;
     border: none;
     padding: 8px 12px;
     cursor: pointer;
     font-size: 20px;
     border-radius: 50%;
-    transition: 0.3s;
+    transition: background $transition-speed, transform $transition-speed;
   }
 
   button:hover {
@@ -155,13 +166,12 @@ $global-gap: 1rem;
 
   .hour-box {
     flex: 0 0 auto;
-    width: 140px;
+    width: $card-width;
     padding: $global-padding;
     text-align: center;
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    transition: transform $transition-speed ease, background $transition-speed ease, box-shadow $transition-speed ease;
     word-wrap: break-word;
     white-space: normal;
-
     box-sizing: border-box;
 
     &:hover {
@@ -185,7 +195,7 @@ $global-gap: 1rem;
     text-align: center;
     margin: 0 auto;
     width: 100%;
-    max-width: 1200px;
+    max-width: $max-width;
     box-sizing: border-box;
     display: flex;
     gap: $global-gap;
@@ -200,12 +210,12 @@ $global-gap: 1rem;
 
   .card {
     flex: 1;
-    border-radius: 10px;
+    border-radius: $border-radius;
     text-align: center;
     border: $border;
     background: rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    transition: transform $transition-speed ease, background $transition-speed ease, box-shadow $transition-speed ease;
     margin: 0 auto;
     box-sizing: border-box;
     padding: $global-padding;

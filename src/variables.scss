@@ -1,9 +1,41 @@
-$background-color: rgb(201, 218, 230);
-$border: 2px solid #1b62b0;
+
 $darkblue: #1b62b0;
+$light-grey: #f1f1f1;
+$white: #ffffff;
+$black: #000000;
+$border: 2px solid rgba(27, 98, 176, 0.63);
+
+
 $global-padding: 1.5rem;
-$global-gap: 1rem;
-$light-grey: #cecbcb;
+$global-gap: 1.5rem;
+$global-margin: 2rem;
+$small-padding: 0.75rem;
+$small-gap: 1rem;
+
+$global-padding-small: 0.75rem;
+$global-padding-medium: 1rem;
+$global-gap-small: 0.5rem;
+$global-margin-small: 1rem;
 
 
+$font-size-large: 2rem;
+$font-size-medium: 1.5rem;
+$font-size-small: 1rem;
+$font-size-xlarge: 2.5rem;
 
+
+$letter-spacing-base: 1px;
+$font-family: 'Quicksand-Regular', Arial, sans-serif;
+
+
+$border-radius: 10px;
+$small-border-radius: 5px;
+
+
+$max-width: 1200px;
+$min-height: 350px;
+$card-width: 140px;
+
+
+$transition-speed: 0.3s;
+$hover-scale: 1.05;

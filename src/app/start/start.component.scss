@@ -1,52 +1,43 @@
 @import "../../variables.scss";
 
+@import "../../variables.scss";
+
 .startView {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 3rem auto;
+  margin: 5rem auto 0;
+  padding: 2rem;
   border: $border;
   background: rgba(255, 255, 255, 0.9);
-  padding: $global-padding;
   border-radius: 10px;
   text-align: center;
-  width: 400px;
-  height: 400px;
-
+  width: 90%;
+  max-width: 500px;
+  min-height: 350px;
+  box-sizing: border-box;
 
   h3 {
     color: $darkblue;
     font-size: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     text-transform: uppercase;
     letter-spacing: 3px;
     width: 80%;
   }
 
   .cityInput {
-    width: 90%;
-    max-width: 400px;
+    width: 100%;
+    max-width: 350px;
     padding: 0.75rem;
     font-size: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     border: 2px solid rgba(27, 98, 176, 0.63);
     border-radius: 5px;
     background-color: white;
-    outline: none;
     color: $darkblue;
-
-    &::placeholder {
-      color: rgba(27, 98, 176, 0.63);
-    }
-
-    &:focus {
-      border: $border;
-    }
-
-    &:active {
-      border: $border;
-    }
+    outline: none;
   }
 
   .btn {
@@ -59,6 +50,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
+    margin-top: 1.5rem;
 
     &:hover {
       transform: scale(1.05);
@@ -67,53 +59,52 @@
     &:disabled {
       background-color: rgba(27, 98, 176, 0.63);
       cursor: not-allowed;
-      border: none;
     }
   }
 }
 
-
 @media (max-width: 768px) {
   .startView {
-    margin: 4rem 1rem;
-    padding: 1.5rem;
+    padding: 2rem;
+    margin: 4rem auto 0;
     max-width: 90%;
   }
 
   h3 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
   }
 
   .cityInput {
-    padding: 0.5rem;
-    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
   }
 
   .btn {
-    padding: 0.5rem 1.5rem;
-    font-size: 0.9rem;
+    padding: 0.75rem 1.8rem;
   }
 }
 
 @media (max-width: 480px) {
   .startView {
-    margin: 4rem 0.5rem;
-    padding: 1rem;
+    margin: 4rem 0;
+    padding: 1.5rem;
   }
 
   h3 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
   }
 
   .cityInput {
-    font-size: 0.85rem;
-    padding: 0.4rem;
+    margin-bottom: 1.2rem;
   }
 
   .btn {
-    padding: 0.4rem 1.2rem;
-    font-size: 0.85rem;
+    padding: 0.75rem 1.5rem;
   }
 }
+
+
+
 
 

@@ -4,7 +4,8 @@
             <div class="location">
                 <h2>{{ getDayOfWeekForToday()}}</h2>
                 <h1>{{ weatherData?.location?.name }}</h1>
-                <h4>{{ weatherData?.location?.country}}</h4>
+                <h4>{{ weatherData?.location?.region}}</h4>
+                <h3>{{ weatherData?.location?.country}}</h3>
                 <p>{{ getCurrentTemperature() }}°C</p>
             </div>
 

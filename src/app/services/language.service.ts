@@ -1,5 +1,5 @@
-import {Injectable, inject} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { Injectable, inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +14,8 @@ export class LanguageService {
     setup() {
         const browserLanguage = navigator.language.split('-')[0];
         const supportedLanguages = ['en', 'de'];
-        console.log("browserLanguage " + browserLanguage);
+        console.log('Detected browser language: ' + browserLanguage);
+
         if (supportedLanguages.includes(browserLanguage)) {
             this.setLanguage(browserLanguage);
         } else {
@@ -23,9 +24,13 @@ export class LanguageService {
     }
 
     setLanguage(language: string) {
-
         this.translate.use(language);
-        console.log("browserLanguage " + language);
         localStorage.setItem('language', language);
+        console.log("Language set to: " + language);
+    }
+
+
+    getSavedLanguage(): string {
+        return localStorage.getItem('language') || 'en';
     }
 }

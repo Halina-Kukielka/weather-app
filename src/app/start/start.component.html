@@ -5,15 +5,23 @@
                 class="cityInput"
                 type="text"
                 [placeholder]="'start.placeholder' | translate"
-                [value]="city"
+                [(ngModel)]="city"
                 (input)="onCityInput($event)"
                 (keyup.enter)="searchWeather()"
         />
+
+        <div *ngIf="cities.length > 0 && city.length > 2" class="city-dropdown">
+            <ul>
+                <li *ngFor="let location of cities" (click)="onSelectCity(location)">
+                    {{ location.name }}, {{ location.region }}, {{ location.country }}
+                </li>
+            </ul>
+        </div>
         <button class="btn"
                 (click)="searchWeather()"
                 [disabled]="!city || city.trim() === ''">
             {{ 'start.search' | translate }}
         </button>
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
     </div>
 </div>
-

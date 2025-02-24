@@ -1,7 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {WeatherData} from './models/weather-data.model';
+import {Location, WeatherData} from './models/weather-data.model';
 import {Observable} from 'rxjs';
+
 
 
 @Injectable({providedIn: 'root'})
@@ -18,5 +19,10 @@ export class HttpService {
     return this.httpClient.get<WeatherData>(linkUrl);
   }
 
+
+  public getCities(city: string): Observable<Location[]> {
+    const searchUrl = `https://api.weatherapi.com/v1/search.json?key=${this.apiKey}&q=${city}`;
+    return this.httpClient.get<Location[]>(searchUrl);
+  }
 
 }

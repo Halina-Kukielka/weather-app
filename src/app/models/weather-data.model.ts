@@ -110,3 +110,8 @@ export interface Hour {
   temp_c: number;
   condition: Condition;
 }
+
+export interface CityNames {
+  english: string;
+  german: string;
+}

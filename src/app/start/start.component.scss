@@ -1,12 +1,10 @@
 @import "../../variables.scss";
 
-@import "../../variables.scss";
-
 .startView {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 5rem auto 0;
   padding: 2rem;
   border: $border;
@@ -15,8 +13,9 @@
   text-align: center;
   width: 90%;
   max-width: 500px;
-  min-height: 350px;
+  min-height: 450px;
   box-sizing: border-box;
+  position: relative;
 
   h3 {
     color: $darkblue;
@@ -27,16 +26,58 @@
   }
 
   .cityInput {
-    width: 100%;
     max-width: 350px;
+    width: 100%;
     padding: 0.75rem;
     font-size: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     border: 2px solid rgba(27, 98, 176, 0.63);
     border-radius: 5px;
     background-color: white;
     color: $darkblue;
     outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $darkblue;
+    }
+  }
+
+  .city-dropdown {
+    width: 100%;
+    max-width: 350px;
+    background-color: white;
+    border: 2px solid rgba(27, 98, 176, 0.63);
+    border-radius: 5px;
+    box-sizing: border-box;
+    max-height: 200px;
+    overflow-y: auto;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    z-index: 10;
+    padding: 0;
+
+    &:hover {
+      border-color: $darkblue;
+    }
+  }
+
+  .city-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 0.75rem;
+      cursor: pointer;
+      font-size: 1rem;
+      color: $darkblue;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(27, 98, 176, 0.1);
+      }
+    }
   }
 
   .btn {
@@ -60,10 +101,15 @@
       cursor: not-allowed;
     }
   }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
 }
 
 @media (max-width: 768px) {
-
   .startView {
     margin: 4rem auto 0;
     max-width: none;
@@ -75,15 +121,10 @@
   }
 
   .cityInput {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .btn {
     padding: 0.75rem 1.8rem;
   }
 }
-
-
-
-
-

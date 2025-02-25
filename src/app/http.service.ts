@@ -8,8 +8,8 @@ import {Observable} from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class HttpService {
 
-  private readonly apiKey = '320869ba8ca64062a7e103327241012';
-  private readonly baseUrl = 'https://api.weatherapi.com/v1/forecast.json';
+  private readonly apiKey = '';
+  private readonly baseUrl = '';
 
   constructor(private httpClient: HttpClient) {
   }

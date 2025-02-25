@@ -58,8 +58,9 @@ export class StartComponent implements OnInit {
         this.selectedCity = city;
         this.city = `${city.name}, ${city.region}, ${city.country}`;
         this.cities = [];
-        this.getWeatherForCity(city);
+        this.errorMessage = '';
     }
+
 
 
     getWeatherForCity(city: Location): void {
@@ -71,7 +72,6 @@ export class StartComponent implements OnInit {
             })
         ).subscribe((response: WeatherData | null) => {
             if (response) {
-                console.log("Weather data:", response);
                 this.weatherData = response;
                 this.errorMessage = '';
             } else {
@@ -83,11 +83,15 @@ export class StartComponent implements OnInit {
 
     searchWeather(): void {
         if (!this.selectedCity) {
-            this.errorMessage = "Please choose location from the list";
+            this.errorMessage = "Please choose a location from the list";
             return;
         }
 
-        console.log("searchWeather() called for:", this.selectedCity);
-        this.router.navigate(['weather/', this.selectedCity.name]);
+        console.log("Redirecting to weather page for:", this.selectedCity);
+        this.router.navigate(['weather',
+            this.selectedCity.name,
+            this.selectedCity.region,
+            this.selectedCity.country]);
     }
+
 }

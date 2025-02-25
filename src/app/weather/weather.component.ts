@@ -34,11 +34,12 @@ export class WeatherComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit(): void {
         this.city = this.route.snapshot.paramMap.get('city') || '';
+        const region = this.route.snapshot.paramMap.get('region') || '';
+        const country = this.route.snapshot.paramMap.get('country') || '';
         var browserLang = this.translate.getBrowserLang();
-        if(browserLang == undefined){
-            browserLang = "en";
-        }
-        this.httpService.getWeather(this.city, browserLang!).subscribe({
+        if (!browserLang) browserLang = "en";
+
+        this.httpService.getWeather(`${this.city},${region},${country}`, browserLang!).subscribe({
             next: (res) => {
                 this.weatherData = res;
                 this.todayDate = new Date().toISOString().split('T')[0];
@@ -55,7 +56,7 @@ export class WeatherComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             },
             error: (err) => {
-                console.error('Błąd podczas pobierania danych pogodowych:', err);
+                console.error('Error while fetching weather data:', err);
             }
         });
         this.translate.get('weather.today').subscribe((translatedToday) => {
